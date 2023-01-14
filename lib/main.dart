@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_dog.dart';
+import 'tasks.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,6 +67,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _goToTasks() {
+    setState(() {
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const TasksPage(title: 'Tasks')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -100,12 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 20),
+              ),
+              onPressed: _goToTasks,
+              child: const Text('Tasks'),
             ),
           ],
         ),
