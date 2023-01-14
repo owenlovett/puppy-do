@@ -41,7 +41,7 @@ class _AddDogState extends State<AddDogPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Add Dog Profile',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.done),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
