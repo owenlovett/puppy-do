@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Puppy-Do Home Page'),
+      home: const MyHomePage(title: 'Puppy-Do - Select Dog'),
     );
   }
 }
