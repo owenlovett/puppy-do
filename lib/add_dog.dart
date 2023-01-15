@@ -10,13 +10,6 @@ class AddDogPage extends StatefulWidget {
 }
 
 class _AddDogState extends State<AddDogPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +71,9 @@ class _AddDogState extends State<AddDogPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: (){
+          print("Button has been pressed");
+        },
         tooltip: 'Add Dog Profile',
         child: const Icon(Icons.done),
       ), // This trailing comma makes auto-formatting nicer for build methods.
