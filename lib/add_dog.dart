@@ -29,7 +29,10 @@ class _AddDogState extends State<AddDogPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Enter Dog Information:',
+              'Enter Dog Information',
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
             Container(
               margin: const EdgeInsets.all(10),
