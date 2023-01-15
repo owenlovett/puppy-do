@@ -110,10 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 20),
-              ),
+            const Image(
+              image: NetworkImage('https://cdn.pixabay.com/photo/2016/04/07/18/57/silhouette-1314467_960_720.png'),
+              width: 100,
+              height: 100,
+              color: Colors.green,
+            ),
+            ElevatedButton(
               onPressed: _goToTasks,
               child: const Text('Tasks'),
             ),
