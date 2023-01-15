@@ -27,29 +27,38 @@ class _AddDogState extends State<AddDogPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
+          children: <Widget>[
+            const Text(
               'Enter Dog Information:',
             ),
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter age: ',
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: const TextField(
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter age: ',
+                ),
               ),
             ),
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter weight: ',
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: const TextField(
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter weight: ',
+                ),
               ),
             ),
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter name: ',
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: const TextField(
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter name: ',
+                ),
               ),
             ),
           ],
