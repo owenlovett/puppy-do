@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AddDogPage extends StatefulWidget {
@@ -10,6 +12,10 @@ class AddDogPage extends StatefulWidget {
 }
 
 class _AddDogState extends State<AddDogPage> {
+
+  var nameController = TextEditingController();
+  var ageController = TextEditingController();
+  var weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,10 @@ class _AddDogState extends State<AddDogPage> {
             ),
             Container(
               margin: const EdgeInsets.all(10),
-              child: const TextField(
+              child: TextField(
+                controller: nameController,
                 obscureText: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Enter name: ',
                 ),
@@ -43,10 +50,11 @@ class _AddDogState extends State<AddDogPage> {
                   flex: 1,
                   child: Container(
                     margin: const EdgeInsets.all(10),
-                    child: const TextField(
+                    child: TextField(
+                      controller: ageController,
                       keyboardType: TextInputType.number,
                       obscureText: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter age: ',
                       ),
@@ -57,10 +65,11 @@ class _AddDogState extends State<AddDogPage> {
                   flex: 1,
                   child: Container(
                     margin: const EdgeInsets.all(10),
-                    child: const TextField(
+                    child: TextField(
+                      controller: weightController,
                       keyboardType: TextInputType.number,
                       obscureText: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter weight: ',
                       ),
@@ -74,7 +83,16 @@ class _AddDogState extends State<AddDogPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          print("Button has been pressed");
+          FirebaseDatabase.instance.ref().child("dogs/dog1").set({
+            "name" : nameController.text,
+            "age" : ageController.text,
+            "weight" : weightController.text,
+          }
+          ).then((value) {
+            print("Success");
+          }).catchError((error){
+            print("Failed:" + error.toString());
+          });
         },
         tooltip: 'Add Dog Profile',
         child: const Icon(Icons.done),
