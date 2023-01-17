@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_dog.dart';
 import 'dog.dart';
+import 'login.dart';
 import 'tasks.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Puppy-Do - Select Dog'),
+      home: const LoginPage(title: 'Login'),
     );
   }
 }
