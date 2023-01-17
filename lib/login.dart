@@ -14,6 +14,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginState extends State<LoginPage> {
 
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,30 +42,25 @@ class _LoginState extends State<LoginPage> {
             ),
             Container(
               margin: const EdgeInsets.all(10),
-              child: const TextField(
+              child: TextField(
+                controller: emailController,
                 obscureText: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Username: ',
                 ),
               ),
             ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password: ',
-                      ),
-                    ),
-                  ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password: ',
                 ),
-              ],
+              ),
             ),
             Flexible(
               child: Container(

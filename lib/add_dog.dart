@@ -44,6 +44,7 @@ class _AddDogState extends State<AddDogPage> {
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: const TextField(
+                      keyboardType: TextInputType.number,
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -57,6 +58,7 @@ class _AddDogState extends State<AddDogPage> {
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: const TextField(
+                      keyboardType: TextInputType.number,
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
