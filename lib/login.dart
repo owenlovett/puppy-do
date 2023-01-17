@@ -54,7 +54,7 @@ class _LoginState extends State<LoginPage> {
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: const TextField(
-                      obscureText: false,
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Password: ',

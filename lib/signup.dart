@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUpPage> {
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: const TextField(
-                      obscureText: false,
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Password: ',
