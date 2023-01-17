@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:puppy_do/signup.dart';
 
@@ -47,7 +48,7 @@ class _LoginState extends State<LoginPage> {
                 obscureText: false,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Username: ',
+                  labelText: 'Email: ',
                 ),
               ),
             ),
@@ -68,10 +69,28 @@ class _LoginState extends State<LoginPage> {
                 margin: const EdgeInsets.only(top: 5, bottom: 2, left: 100, right: 100),
                 child: ElevatedButton(
                   onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Puppy-Do - Select Dog',)),
-                    );
+                    Future<UserCredential> credential = FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+                    credential.then((value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Puppy-Do - Select Dog',)),
+                      );
+                    });
+                    credential.catchError((error){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Failed to log in!'),
+                            content: Text(error.toString()),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          )
+                      );
+                    });
                   },
                   child: const Text("Login"),
                 ),

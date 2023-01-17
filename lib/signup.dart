@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'main.dart';
@@ -12,6 +13,9 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUpPage> {
+
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,30 +42,25 @@ class _SignUpState extends State<SignUpPage> {
             ),
             Container(
               margin: const EdgeInsets.all(10),
-              child: const TextField(
+              child: TextField(
+                controller: emailController,
                 obscureText: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Username: ',
+                  labelText: 'Email: ',
                 ),
               ),
             ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password: ',
-                      ),
-                    ),
-                  ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password: ',
                 ),
-              ],
+              ),
             ),
             Flexible(
               child: Container(
@@ -69,10 +68,25 @@ class _SignUpState extends State<SignUpPage> {
                 margin: const EdgeInsets.only(top: 2, bottom: 2, left: 100, right: 100),
                 child: ElevatedButton(
                   onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Puppy-Do - Select Dog',)),
-                    );
+                    Future<UserCredential> credential = FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+                    credential.then((value) {
+                      Navigator.pop(context);
+                    });
+                    credential.catchError((error){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Failed to sign up!'),
+                            content: Text(error.toString()),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          )
+                      );
+                    });
                   },
                   child: const Text("Sign Up"),
                 ),
