@@ -38,18 +38,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var dogs= [];
+  var dogs = [];
+  var dogskey = [];
 
   Future<void> loadData() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref('dogs');
     DatabaseEvent event = await ref.once();
     var snapshot = event.snapshot;
     var tmpdogs = [];
+    var tmpdogskey = [];
     snapshot.children.forEach((child) {
       print(child.key);
       tmpdogs.add(child.value);
+      tmpdogskey.add(child.key);
     });
     dogs = tmpdogs;
+    dogskey = tmpdogskey;
+    print(dogskey);
     setState(() {
 
     });
@@ -95,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TasksPage(title: 'Tasks', dogDetails: dogs[index],)),
+                          MaterialPageRoute(builder: (context) => TasksPage(title: 'Tasks', dogDetails: dogs[index], dogKey: dogskey[index],)),
                         );
                       },
                       child: Text('${dogs[index]['name']}'),
