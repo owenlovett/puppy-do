@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+import 'add_task.dart';
 
 class TasksPage extends StatefulWidget {
   TasksPage({super.key, required this.title, this.dogDetails, this.dogKey});
@@ -33,18 +36,10 @@ class _TasksState extends State<TasksPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          String dog = "${widget.dogKey}";
-          var timestamp = DateTime.now().millisecondsSinceEpoch;
-          FirebaseDatabase.instance.ref().child("dogs/$dog" + "/tasks/task$timestamp").set({
-            "task name" : "task 1",
-            "marked" : "0"
-          }
-          ).then((value) {
-            print("Success");
-            Navigator.pop(context);
-          }).catchError((error){
-            print("Failed:" + error.toString());
-          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskPage(title: 'Add Task', dogKey: widget.dogKey,)),
+          );
         },
         tooltip: 'Add Dog Profile',
         child: const Icon(Icons.done),

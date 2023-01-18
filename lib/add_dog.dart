@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class AddDogPage extends StatefulWidget {
-  const AddDogPage({super.key, required this.title});
+  AddDogPage({super.key, required this.title,});
 
   final String title;
 
@@ -86,16 +87,24 @@ class _AddDogState extends State<AddDogPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           String dogname = nameController.text;
-          FirebaseDatabase.instance.ref().child("dogs/dog-$dogname").set({
-            "name" : nameController.text,
-            "age" : ageController.text,
-            "weight" : weightController.text,
-          }
-          ).then((value) {
-            print("Success");
-            Navigator.pop(context);
-          }).catchError((error){
-            print("Failed:" + error.toString());
+          FirebaseAuth.instance
+              .authStateChanges()
+              .listen((User? user) {
+            if (user != null) {
+              print(user.uid);
+              String uid = user.uid;
+              FirebaseDatabase.instance.ref().child("users/$uid/dog-$dogname").set({
+                "name" : nameController.text,
+                "age" : ageController.text,
+                "weight" : weightController.text,
+              }
+              ).then((value) {
+                print("Success");
+                Navigator.pop(context);
+              }).catchError((error){
+                print("Failed:" + error.toString());
+              });
+            }
           });
         },
         tooltip: 'Add Dog Profile',

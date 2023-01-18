@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'add_dog.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title,});
 
   final String title;
 
@@ -42,34 +43,50 @@ class _MyHomePageState extends State<MyHomePage> {
   var dogskey = [];
 
   Future<void> loadData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref('dogs');
-    DatabaseEvent event = await ref.once();
-    var snapshot = event.snapshot;
-    var tmpdogs = [];
-    var tmpdogskey = [];
-    snapshot.children.forEach((child) {
-      print(child.key);
-      tmpdogs.add(child.value);
-      tmpdogskey.add(child.key);
-    });
-    dogs = tmpdogs;
-    dogskey = tmpdogskey;
-    print(dogskey);
-    setState(() {
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) async {
+      if (user != null) {
+        print(user.uid);
+        String uid = user.uid;
 
+        DatabaseReference ref = FirebaseDatabase.instance.ref("users/$uid");
+        DatabaseEvent event = await ref.once();
+        var snapshot = event.snapshot;
+        var tmpdogs = [];
+        var tmpdogskey = [];
+        snapshot.children.forEach((child) {
+          print(child.key);
+          tmpdogs.add(child.value);
+          tmpdogskey.add(child.key);
+        });
+        dogs = tmpdogs;
+        dogskey = tmpdogskey;
+        print(dogskey);
+        setState(() {
+
+        });
+      }
     });
   }
 
   _MyHomePageState(){
-    loadData();
-    FirebaseDatabase.instance.ref().child("dogs").onChildChanged.listen((event) {
-      loadData();
-    });
-    FirebaseDatabase.instance.ref().child("dogs").onChildAdded.listen((event) {
-      loadData();
-    });
-    FirebaseDatabase.instance.ref().child("dogs").onChildRemoved.listen((event) {
-      loadData();
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+      if (user != null) {
+        String uid = user.uid;
+        loadData();
+        FirebaseDatabase.instance.ref().child("users/$uid").onChildChanged.listen((event) {
+          loadData();
+        });
+        FirebaseDatabase.instance.ref().child("users/$uid").onChildAdded.listen((event) {
+          loadData();
+        });
+        FirebaseDatabase.instance.ref().child("users/$uid").onChildRemoved.listen((event) {
+          loadData();
+        });
+      }
     });
   }
 
@@ -120,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AddDogPage(title: 'Add Dog Profile')),
+            MaterialPageRoute(builder: (context) => AddDogPage(title: 'Add Dog Profile',)),
           );
         },
         tooltip: 'Add Dog Profile',

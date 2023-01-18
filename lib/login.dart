@@ -71,9 +71,12 @@ class _LoginState extends State<LoginPage> {
                   onPressed: (){
                     Future<UserCredential> credential = FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
                     credential.then((value) {
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                      final User user = auth.currentUser!;
+                      final uid = user.uid;
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Puppy-Do - Select Dog',)),
+                        MaterialPageRoute(builder: (context) => MyHomePage(title: 'Puppy-Do - Select Dog',)),
                       );
                     });
                     credential.catchError((error){
