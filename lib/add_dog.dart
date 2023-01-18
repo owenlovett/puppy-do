@@ -85,8 +85,8 @@ class _AddDogState extends State<AddDogPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          var timestamp = DateTime.now().millisecondsSinceEpoch;
-          FirebaseDatabase.instance.ref().child("dogs/dog$timestamp").set({
+          String dogname = nameController.text;
+          FirebaseDatabase.instance.ref().child("dogs/dog-$dogname").set({
             "name" : nameController.text,
             "age" : ageController.text,
             "weight" : weightController.text,
