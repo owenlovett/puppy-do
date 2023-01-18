@@ -17,17 +17,24 @@ class _TasksState extends State<TasksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.dogDetails.name),
+        title: Text(widget.dogDetails['name']),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "${widget.dogDetails.name}",
+              "${widget.dogDetails['name']}",
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+        },
+        tooltip: 'Add Dog Profile',
+        child: const Icon(Icons.done),
       ),
     );
   }

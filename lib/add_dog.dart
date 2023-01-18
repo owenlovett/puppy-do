@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class AddDogPage extends StatefulWidget {
   const AddDogPage({super.key, required this.title});
 
@@ -83,13 +85,15 @@ class _AddDogState extends State<AddDogPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          FirebaseDatabase.instance.ref().child("dogs/dog1").set({
+          var timestamp = DateTime.now().millisecondsSinceEpoch;
+          FirebaseDatabase.instance.ref().child("dogs/dog$timestamp").set({
             "name" : nameController.text,
             "age" : ageController.text,
             "weight" : weightController.text,
           }
           ).then((value) {
             print("Success");
+            Navigator.pop(context);
           }).catchError((error){
             print("Failed:" + error.toString());
           });

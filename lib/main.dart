@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'add_dog.dart';
 import 'dog.dart';
@@ -37,13 +38,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  List<Dog> dogs = <Dog>[];
+  var dogs= [];
+
+  Future<void> loadData() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref('dogs');
+    DatabaseEvent event = await ref.once();
+    var snapshot = event.snapshot;
+    var tmpdogs = [];
+    snapshot.children.forEach((child) {
+      print(child.key);
+      tmpdogs.add(child.value);
+    });
+    dogs = tmpdogs;
+    setState(() {
+
+    });
+  }
 
   _MyHomePageState(){
-    Dog millie = Dog("Millie", "0", "10");
-    Dog cricket = Dog("Cricket", "16", "30");
-
-    dogs = [millie, cricket];
+    loadData();
+    FirebaseDatabase.instance.ref().child("dogs").onChildChanged.listen((event) {
+      loadData();
+    });
+    FirebaseDatabase.instance.ref().child("dogs").onChildAdded.listen((event) {
+      loadData();
+    });
+    FirebaseDatabase.instance.ref().child("dogs").onChildRemoved.listen((event) {
+      loadData();
+    });
   }
 
   @override
@@ -76,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           MaterialPageRoute(builder: (context) => TasksPage(title: 'Tasks', dogDetails: dogs[index],)),
                         );
                       },
-                      child: Text(dogs[index].name),
+                      child: Text('${dogs[index]['name']}'),
                     ),
                   );
                 },
