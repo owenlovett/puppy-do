@@ -60,7 +60,7 @@ class _AddTaskState extends State<AddTaskPage> {
               String dog = "${widget.dogKey}";
               FirebaseDatabase.instance.ref().child("users/$uid/$dog" + "/tasks/task-$taskname").set({
                 "task name" : nameController.text,
-                "marked" : "0"
+                "marked" : "not done"
               }
               ).then((value) {
                 print("Success");
