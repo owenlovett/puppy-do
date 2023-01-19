@@ -162,8 +162,8 @@ class _TasksState extends State<TasksPage> {
             MaterialPageRoute(builder: (context) => AddTaskPage(title: 'Add Task', dogKey: widget.dogKey,)),
           );
         },
-        tooltip: 'Add Dog Profile',
-        child: const Icon(Icons.done),
+        tooltip: 'Add Dog Task',
+        child: const Icon(Icons.add),
       ),
     );
   }
