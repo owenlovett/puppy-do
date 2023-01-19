@@ -1,16 +1,10 @@
 # puppy_do
 
-A new Flutter project.
+This flutter project is a To-Do list app based on taking care of dogs.
+This project uses Firebase to authenticate users and store their data.
+The data is unique to each user, so users cant see other users' data.
+Users can create many dog profiles, and each dog has tasks unique to them.
 
-## Getting Started
+Video demo - https://youtu.be/hibIl6JU9J0
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
